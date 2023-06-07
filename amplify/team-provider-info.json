@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-promptlio-dev-181008-authRole",
+      "UnauthRoleArn": "arn:aws:iam::111397224496:role/amplify-promptlio-dev-181008-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::111397224496:role/amplify-promptlio-dev-181008-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-promptlio-dev-181008-deployment",
+      "UnauthRoleName": "amplify-promptlio-dev-181008-unauthRole",
+      "StackName": "amplify-promptlio-dev-181008",
+      "StackId": "arn:aws:cloudformation:eu-north-1:111397224496:stack/amplify-promptlio-dev-181008/63fafee0-0545-11ee-9fef-0a47f8406cd4",
+      "AmplifyAppId": "d2x1q5b6dd7klz"
+    },
+    "categories": {
+      "auth": {
+        "promptlio4bfea25b": {}
+      },
+      "api": {
+        "promptlio": {}
+      }
+    }
+  }
+}
