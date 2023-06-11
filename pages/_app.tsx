@@ -2,6 +2,11 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Montserrat } from 'next/font/google';
 import { Amplify, Auth } from 'aws-amplify';
+
+import awsconfig from '../src/aws-exports';
+
+Amplify.configure(awsconfig);
+Auth.configure(awsconfig);
  
 const montserrat = Montserrat({ subsets: ['latin'] });
 

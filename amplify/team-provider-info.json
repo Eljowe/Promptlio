@@ -17,6 +17,15 @@
       },
       "api": {
         "promptlio": {}
+      },
+      "function": {
+        "S3Trigger465af196": {
+          "deploymentBucketName": "amplify-promptlio-dev-181008-deployment",
+          "s3Key": "amplify-builds/S3Trigger465af196-4d637a4831762b733830-build.zip"
+        }
+      },
+      "storage": {
+        "promptbackend": {}
       }
     }
   }

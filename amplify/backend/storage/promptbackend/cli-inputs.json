@@ -1,0 +1,14 @@
+{
+  "resourceName": "promptbackend",
+  "policyUUID": "4f62abbd",
+  "bucketName": "promptlio3447c35ba19b4af996d762e7f61a05c9",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger465af196",
+  "groupAccess": {}
+}
