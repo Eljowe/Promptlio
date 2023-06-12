@@ -13,17 +13,6 @@ export default function App() {
   const { user } = useAuthenticator();
   const { signOut } = useAuthenticator();
 
-<<<<<<< HEAD
-function App({ signOut, user }) {
-  return (
-    <>
-      <h1>Hello {user.username}</h1>
-      <button className='w-40 mx-2 mt-10 text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded' onClick={signOut}>Sign out</button>
-      <Link className='mx-2 mt-10 text-center hover:text-blue-700 text-white py-2 px-4 rounded' href='/'>Home</Link>
-    </>
-  );
-}
-=======
   if (user) {
     return (
       <>
@@ -33,7 +22,6 @@ function App({ signOut, user }) {
       </>
     )
   }
->>>>>>> 4d70924ffe8fe2abf31a5fcee4e43f48e60b13c6
 
   return <Login />;
 }
