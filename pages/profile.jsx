@@ -6,7 +6,7 @@ import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Link from 'next/link';
 
-import awsExports from "../src/aws-exports";
+import awsExports from "../aws-exports";
 Amplify.configure(awsExports);
 
 export default function App() {

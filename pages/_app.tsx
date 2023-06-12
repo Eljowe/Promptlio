@@ -4,7 +4,7 @@ import { Montserrat } from 'next/font/google';
 import { Amplify, Auth } from 'aws-amplify';
 import { AmplifyProvider, Authenticator } from "@aws-amplify/ui-react";
 
-import awsconfig from '../src/aws-exports';
+import awsconfig from '../aws-exports';
 
 Amplify.configure(awsconfig);
 Auth.configure(awsconfig);
