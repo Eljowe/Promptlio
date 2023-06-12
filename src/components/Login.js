@@ -27,7 +27,7 @@ import {
     return (
       <Grid templateColumns={{ base: "1fr 0", medium: "1fr 1fr" }}>
         <Flex
-          backgroundColor="#e0baba"
+          backgroundColor="#253342"
           justifyContent="center"
         >
           <Authenticator components={components}>
@@ -41,7 +41,7 @@ import {
         </Flex>
         <View height="100vh">
           <Image
-            src="https://img.freepik.com/free-vector/modern-mosaic-wallpaper-rose-gold-black_53876-58064.jpg?w=1380&t=st=1686584257~exp=1686584857~hmac=41d4ddf7b44b347f4215fe03626a1737ccdf02a0c0bbe9d813d53fc56246e436"
+            src="https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg"
             width="100%"
             height="100%"
             objectFit="cover"

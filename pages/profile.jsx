@@ -15,11 +15,11 @@ export default function App() {
 
   if (user) {
     return (
-      <>
-        <h1>Hello {user.username}</h1>
-        <button onClick={signOut}>Sign out</button>
-        <Link className='w-1/2 mx-2 mt-10 text-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded' href='/'>Home</Link>
-      </>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-center text-3xl p-10">Hello {user.username}</h1>
+        <button className="w-40 mx-2 mt-10 text-center bg-blue-500 hover:text-blue-700 text-white py-2 px-4 rounded" onClick={signOut}>Sign out</button>
+        <Link className='w-40 mx-2 mt-10 text-center hover:text-blue-700 text-white py-2 px-4 rounded' href='/'>Home</Link>
+      </div>
     )
   }
 

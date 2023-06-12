@@ -5,7 +5,7 @@ export function Footer() {
 
   return (
     <Flex justifyContent="center" padding={tokens.space.medium}>
-      <Text>&copy; Promptlio.net</Text>
+      <Text color={tokens.colors.white}>&copy; Promptlio.net</Text>
     </Flex>
   );
 }
