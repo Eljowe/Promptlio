@@ -11,7 +11,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 30;
+    --background-start-rgb: 59, 59, 59;
     --background-end-rgb: 0, 0, 0;
   }
 }
@@ -27,5 +27,5 @@ body {
 }
 
 .red {
-  color: #b98d8d
+  color: rgb(59, 59, 59)
 }
