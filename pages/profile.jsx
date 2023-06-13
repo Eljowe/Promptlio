@@ -8,9 +8,6 @@ import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Link from 'next/link';
 
-Amplify.configure(config);
-Auth.configure(config);
-
 export default function App() {
   const { user } = useAuthenticator();
   const { signOut } = useAuthenticator();
