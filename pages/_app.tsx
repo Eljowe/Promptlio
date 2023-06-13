@@ -7,8 +7,8 @@ import { AmplifyProvider, Authenticator } from "@aws-amplify/ui-react";
  
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-Amplify.configure(config);
-Auth.configure(config);
+Amplify.configure({ ...config, ssr: true })
+Auth.configure({...config});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
