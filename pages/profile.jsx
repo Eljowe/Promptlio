@@ -1,14 +1,12 @@
+import '../configureAmplify'
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 import Router from 'next/router'
-import '../configureAmplify'
-
 
 import { Profile } from "../src/layouts/Profile";
 import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Link from 'next/link';
-Amplify.configure(awsExports);
 
 export default function App() {
   const { user } = useAuthenticator();
