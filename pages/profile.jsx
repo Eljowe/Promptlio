@@ -3,7 +3,6 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 import Router from 'next/router'
 
-import { Profile } from "../src/layouts/Profile";
 import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Link from 'next/link';
@@ -19,10 +18,42 @@ export default function App() {
 
   if (user) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-center text-3xl p-10">Hello {user.username}</h1>
-        <button className="w-40 mx-2 mt-10 text-center bg-blue-500 hover:text-blue-700 text-white py-2 px-4 rounded" onClick={signOutHandler}>Sign out</button>
-        <Link className='w-40 mx-2 mt-10 text-center hover:text-blue-700 text-white py-2 px-4 rounded' href='/'>Home</Link>
+      <div className='flex flex-col'>
+        <div className='flex flex-row items-center justify-center'>
+          <h1 className="text-center text-md p-2">Hello {user.username}</h1>
+          <Link className='w-40 p-2 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
+          <button className="w-40 text-center hover:text-blue-700 text-white p-2 rounded" onClick={signOutHandler}>Sign out</button>
+        </div>
+        <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
+          <div className='w-full sm:w-[40%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-5 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+          </div>
+          <div className='w-full sm:w-[40%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-5 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+            <p>Hello</p>
+            <p>Heei</p>
+          </div>
+          <div className='w-full sm:w-[40%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-5 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
+            <p>1</p>
+            <p>2</p>
+          </div>
+          <div className='w-full sm:w-[40%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-5 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
+            <p>1</p>
+            <p>2</p>
+          </div>
+        </div>
       </div>
     )
   }
