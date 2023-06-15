@@ -30,7 +30,6 @@ import {
           backgroundColor="#253342"
           justifyContent="center"
         >
-          <Link className='w-40 p-2 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
           <Authenticator components={components}>
             {({ signOut, user }) => (
               <main>
