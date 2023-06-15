@@ -6,7 +6,7 @@ import {
     useTheme,
     View
   } from "@aws-amplify/ui-react";
-  
+  import Link from 'next/link';
   import { Header } from "./Header";
   import { Footer } from "./Footer";
   import { SignInHeader } from "./SignInHeader";
