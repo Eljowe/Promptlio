@@ -10,8 +10,7 @@ export default function Home() {
     >
       <div className='flex min-w-screen flex-row items-center justify-between py-8'>
         <p className='px-4'>Promptlio</p>
-        {user ? <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link> : <Link className='text-white hover:text-blue-700 my-10 px-4' href="/profile">Login</Link>}
-        {user ? <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link> : <Link className='text-white hover:text-blue-700 my-10 px-4' href="/login">Login2</Link>}
+        {user ? <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link> : <Link className='text-white hover:text-blue-700 px-4' href="/login">Login</Link>}
       </div>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <h1 className="text-4xl font-bold">Hello from main</h1>
