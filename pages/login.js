@@ -9,7 +9,7 @@ import Router from 'next/router'
 export default function App() {
   const { user } = useAuthenticator();
   if (user) {
-    redirect('/');
+    Router.push('/');
   }
   return(
     <Login />
