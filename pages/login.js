@@ -6,10 +6,10 @@ import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Router from 'next/router'
 
-export default async function Home({ params }) {
+export default function App() {
   const { user } = useAuthenticator();
   if (user) {
-    Router.push('/');
+    redirect('/');
   }
   return(
     <Login />
