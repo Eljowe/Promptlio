@@ -5,7 +5,7 @@ export function Header() {
 
   return (
     <div>
-      <Link className='w-40 p-2 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
+      <Link className='p-2 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
       <Image
         alt="logo"
         src="./6.svg"
