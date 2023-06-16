@@ -12,10 +12,10 @@ import {
   import { SignInHeader } from "./SignInHeader";
   import { SignInFooter } from "./SignInFooter";
   
+
   const components = {
     Header,
     SignIn: {
-      Header: SignInHeader,
       Footer: SignInFooter
     },
     Footer
