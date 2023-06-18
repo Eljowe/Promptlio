@@ -35,7 +35,7 @@ export default function App({ todos }) {
   const onCreateTodo = async (todo) => {
     const newTodo = {
       title: todo,
-      test_text: "none",
+      description: "none",
     };
   
     try {
