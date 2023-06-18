@@ -1,28 +1,62 @@
 import config from '../src/aws-exports'
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { Amplify } from "aws-amplify";
+import { Amplify, API } from "aws-amplify";
 import Router from 'next/router'
-
+import CreateTodo from "../src/components/CreateTodo";
 import { Login } from "../src/components/Login";
 import '@aws-amplify/ui-react/styles.css';
 import Link from 'next/link';
+import * as mutations from "../src/graphql/mutations";
+import * as queries from '../src/graphql/queries';
+import React, { useState } from "react";
 
-export default function App() {
+export async function getStaticProps() {
+  const todoData = await API.graphql({
+    query: queries.listTodos,
+  });
+
+  return {
+    props: {
+      todos: todoData.data.listTodos.items,
+    }
+  };
+}
+
+export default function App({ todos }) {
   const { user } = useAuthenticator();
   const { signOut } = useAuthenticator();
+  const [todoList, setTodoList] = useState(todos);
 
   const signOutHandler = () => {
     signOut();
     Router.push('/');
   }
 
-  console.log(user)
+  const onCreateTodo = async (todo) => {
+    const newTodo = {
+      title: todo,
+      test_text: "none",
+    };
+  
+    try {
+      await API.graphql({
+        query: mutations.createTodo,
+        variables: { input: newTodo },
+      });
+  
+      setTodoList((list) => [...list, { ...newTodo }]);
+  
+      console.log("Successfully created a todo!");
+    } catch (err) {
+      console.log("error: ", err);
+    }
+  };
 
   if (user) {
     return (
       <div className='flex flex-col'>
+        <CreateTodo onCreateTodo={onCreateTodo} />
         <div className='flex flex-row items-center justify-center py-8'>
-          <h1 className="text-center text-md px-4">Hello {user.username}</h1>
           <Link className='px-4 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
           <button className="text-center hover:text-blue-700 text-white px-4 rounded" onClick={signOutHandler}>Logout</button>
         </div>
