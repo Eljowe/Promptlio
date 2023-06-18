@@ -5,5 +5,7 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
+export { default as UserdataCreateForm } from "./UserdataCreateForm";
+export { default as UserdataUpdateForm } from "./UserdataUpdateForm";
 export { default as TodoCreateForm } from "./TodoCreateForm";
 export { default as TodoUpdateForm } from "./TodoUpdateForm";
