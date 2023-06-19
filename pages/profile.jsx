@@ -41,14 +41,14 @@ function ProfilePage() {
     }
   };
 
-  const onCreateTodo = async (todo) => {
+  const onCreateTodo = async (todo, todoDescription) => {
     try {
       const newTodo = await API.graphql({
         query: createTodo,
         variables: {
             input: {
         "name": `${todo}`,
-        "description": "Lorem ipsum dolor sit amet"
+        "description": `${todoDescription}`
       },
       authMode: "AMAZON_COGNITO_USER_POOLS"
         }
@@ -80,7 +80,6 @@ function ProfilePage() {
 
   return (
     <div className="flex flex-col">
-      <CreateTodo onCreateTodo={onCreateTodo} />
       <div className="flex flex-row items-center justify-center py-8">
         <Link href="/">Home</Link>
         <button
@@ -90,6 +89,7 @@ function ProfilePage() {
           Logout
         </button>
       </div>
+      <CreateTodo onCreateTodo={onCreateTodo} />
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
         {todos.map((todo) => (
           <div
@@ -98,7 +98,7 @@ function ProfilePage() {
           >
             <p>{todo.name}</p>
             <p>{todo.description}</p>
-            <button onClick={() => onDeleteTodo(todo.id)}>Delete</button>
+            <button className='bg-red-700 px-2 py-1 rounded-md' onClick={() => onDeleteTodo(todo.id)}>Delete</button>
           </div>
         ))}
       </div>
