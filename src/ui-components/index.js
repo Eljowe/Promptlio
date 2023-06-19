@@ -5,6 +5,7 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
+export { default as CreateTodoAWSForm } from "./CreateTodoAWSForm";
 export { default as UserdataCreateForm } from "./UserdataCreateForm";
 export { default as UserdataUpdateForm } from "./UserdataUpdateForm";
 export { default as TodoCreateForm } from "./TodoCreateForm";

@@ -17,26 +17,24 @@ const CreateTodo = ({ onCreateTodo }) => {
   return (
     <>
       <form className="flex justify-center mt-10">
-        <div className="bg-yellow-300 px-4 py-2 rounded-lg w-96">
-          <h1 className="text-center mt-4 mb-4 text-2xl text-blue-600 font-bold">
+        <div className="bg-gray-800 px-4 py-2 rounded-lg w-96">
+          <h1 className="text-center mt-4 mb-4 text-2xl text-white font-bold">
             TodoList
           </h1>
           <div className="mt-6 flex space-x-4 m-10 justify-center">
             <input
-              className="bg-blue-700 rounded-md py-2 px-4 border-2 outline-none text-blue-700"
+              className="bg-white rounded-md py-2 px-4 border-2 outline-none text-black"
               id="todo"
               name="todo"
               value={todoItem}
               placeholder="Create a new Todo"
               onChange={onInputChange}
-              style={{ backgroundColor: 'white', color: 'black' }}
-            />
+              />
             <button
-              className="bg-blue-600 text-red-600 px-4 rounded-md font-semibold"
+              className="bg-blue-600 text-white px-4 rounded-md"
               onClick={onSubmit}
-              style={{ backgroundColor: 'blue', color: 'black' }}
             >
-              <i className="z-5 fa-solid fa-plus text-red-600 bg-red-300"></i>
+              Submit
             </button>
           </div>
         </div>

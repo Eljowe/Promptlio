@@ -7,7 +7,7 @@ import CreateTodo from '../src/components/CreateTodo';
 import { Login } from '../src/components/Login';
 import Link from 'next/link';
 import Router from 'next/router';
-import { createTodo } from '../src/graphql/mutations';
+import { createTodo, deleteTodo } from '../src/graphql/mutations';
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
@@ -18,11 +18,11 @@ function ProfilePage() {
       const userId = user.attributes.sub;
 
       const todoData = await API.graphql({
-        query: queries.listUserTodos,
+        query: queries.listTodos,
         variables: { userId },
       });
 
-      setTodos(todoData.data.listUserTodos.items);
+      setTodos(todoData.data.listTodos.items);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -42,7 +42,6 @@ function ProfilePage() {
   };
 
   const onCreateTodo = async (todo) => {
-  
     try {
       const newTodo = await API.graphql({
         query: createTodo,
@@ -54,14 +53,30 @@ function ProfilePage() {
       authMode: "AMAZON_COGNITO_USER_POOLS"
         }
     });
-  
-      setTodos((prevTodos) => [...prevTodos, { ...newTodo }]);
+
+      setTodos((prevTodos) => [...prevTodos, { ...newTodo.data.createTodo }]);
   
       console.log('Successfully created a todo!');
     } catch (error) {
       console.log('Error:', error);
     }
   };
+
+  const onDeleteTodo = async(id) => {
+    try {
+      const res = await API.graphql({
+        query: deleteTodo,
+        variables: {
+            input: {
+                id: id
+            }
+        }
+      });
+      fetchTodos();
+    } catch (e) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <div className="flex flex-col">
@@ -81,8 +96,9 @@ function ProfilePage() {
             key={todo.id}
             className="w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl"
           >
-            <p>{todo.title}</p>
+            <p>{todo.name}</p>
             <p>{todo.description}</p>
+            <button onClick={() => onDeleteTodo(todo.id)}>Delete</button>
           </div>
         ))}
       </div>

@@ -25,11 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={montserrat.className}>
+        <div className='debug-screens'>
         <AmplifyProvider>
           <Authenticator.Provider>
             <Component {...pageProps} />
             </Authenticator.Provider>
         </AmplifyProvider>
+       </div>
       </main>
     </>
   );
