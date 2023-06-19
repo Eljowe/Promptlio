@@ -31,3 +31,22 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
+
+export const listUserTodos = /* GraphQL */ `
+  query ListUserTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

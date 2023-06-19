@@ -1,98 +1,93 @@
-import config from '../src/aws-exports'
-import { useAuthenticator } from "@aws-amplify/ui-react";
-import { Amplify, API } from "aws-amplify";
-import Router from 'next/router'
-import CreateTodo from "../src/components/CreateTodo";
-import { Login } from "../src/components/Login";
-import '@aws-amplify/ui-react/styles.css';
-import Link from 'next/link';
-import * as mutations from "../src/graphql/mutations";
+import { useEffect, useState } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Auth, API } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
-import React, { useState } from "react";
+import * as mutations from '../src/graphql/mutations';
+import CreateTodo from '../src/components/CreateTodo';
+import { Login } from '../src/components/Login';
+import Link from 'next/link';
+import Router from 'next/router';
+import { createTodo } from '../src/graphql/mutations';
 
-export async function getStaticProps() {
-  const todoData = await API.graphql({
-    query: queries.listTodos,
-  });
+function ProfilePage() {
+  const [todos, setTodos] = useState([]);
 
-  return {
-    props: {
-      todos: todoData.data.listTodos.items,
+  const fetchTodos = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const userId = user.attributes.sub;
+
+      const todoData = await API.graphql({
+        query: queries.listUserTodos,
+        variables: { userId },
+      });
+
+      setTodos(todoData.data.listUserTodos.items);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
-}
 
-export default function App({ todos }) {
-  const { user } = useAuthenticator();
-  const { signOut } = useAuthenticator();
-  const [todoList, setTodoList] = useState(todos);
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
-  const signOutHandler = () => {
-    signOut();
-    Router.push('/');
-  }
+  const signOutHandler = async () => {
+    try {
+      await Auth.signOut();
+      Router.push('/');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const onCreateTodo = async (todo) => {
-    const newTodo = {
-      title: todo,
-      description: "none",
-    };
   
     try {
-      await API.graphql({
-        query: mutations.createTodo,
-        variables: { input: newTodo },
-      });
+      const newTodo = await API.graphql({
+        query: createTodo,
+        variables: {
+            input: {
+        "name": `${todo}`,
+        "description": "Lorem ipsum dolor sit amet"
+      },
+      authMode: "AMAZON_COGNITO_USER_POOLS"
+        }
+    });
   
-      setTodoList((list) => [...list, { ...newTodo }]);
+      setTodos((prevTodos) => [...prevTodos, { ...newTodo }]);
   
-      console.log("Successfully created a todo!");
-    } catch (err) {
-      console.log("error: ", err);
+      console.log('Successfully created a todo!');
+    } catch (error) {
+      console.log('Error:', error);
     }
   };
 
-  if (user) {
-    return (
-      <div className='flex flex-col'>
-        <CreateTodo onCreateTodo={onCreateTodo} />
-        <div className='flex flex-row items-center justify-center py-8'>
-          <Link className='px-4 text-center hover:text-blue-700 text-whiterounded' href='/'>Home</Link>
-          <button className="text-center hover:text-blue-700 text-white px-4 rounded" onClick={signOutHandler}>Logout</button>
-        </div>
-        <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
-          <div className='w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-          </div>
-          <div className='w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-            <p>Hello</p>
-            <p>Heei</p>
-          </div>
-          <div className='w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
-            <p>1</p>
-            <p>2</p>
-          </div>
-          <div className='w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl'>
-            <p>1</p>
-            <p>2</p>
-          </div>
-        </div>
+  return (
+    <div className="flex flex-col">
+      <CreateTodo onCreateTodo={onCreateTodo} />
+      <div className="flex flex-row items-center justify-center py-8">
+        <Link href="/">Home</Link>
+        <button
+          className="text-center hover:text-blue-700 text-white px-4 rounded"
+          onClick={signOutHandler}
+        >
+          Logout
+        </button>
       </div>
-    )
-  }
-
-  return <Login />;
+      <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
+        {todos.map((todo) => (
+          <div
+            key={todo.id}
+            className="w-full sm:w-[42%] md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 m-3 flex flex-col items-center justify-center border-2 border-blue-600 rounded-xl"
+          >
+            <p>{todo.title}</p>
+            <p>{todo.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
+
+export default withAuthenticator(ProfilePage);
