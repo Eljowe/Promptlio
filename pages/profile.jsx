@@ -81,7 +81,7 @@ function ProfilePage() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-center py-8">
-        <Link href="/">Home</Link>
+        <Link className='px-4' href="/">Home</Link>
         <button
           className="text-center hover:text-blue-700 text-white px-4 rounded"
           onClick={signOutHandler}

@@ -5,14 +5,13 @@ const CreateTodo = ({ onCreateTodo }) => {
   const [todoDescription, setTodoDescription] = useState("");
 
   const onInputChange = (e) => {
-    const { value } = e.target;
-    setTodoItem(value);
+    const { name, value } = e.target;
+    if (name === 'todoItem') {
+      setTodoItem(value);
+    } else if (name === 'todoDescription') {
+      setTodoDescription(value);
+    }
   };
-
-  const onDescInputChange = (e) => {
-    const { value } = e.target;
-    setTodoDescription(value);
-  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,8 +23,8 @@ const CreateTodo = ({ onCreateTodo }) => {
   return (
     <>
       <form className="flex justify-center mt-10">
-        <div className="bg-gray-800 px-4 py-2 rounded-lg w-96">
-          <h1 className="text-center mt-4 mb-4 text-2xl text-white">
+        <div className="px-4 py-2 rounded-lg w-96">
+          <h1 className="text-center mt-4 mb-4 text-xl text-white">
             Todo form
           </h1>
           <div className="mt-6 flex flex-col m-10 justify-center">
