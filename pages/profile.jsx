@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, AmplifyS3Image  } from '@aws-amplify/ui-react';
 import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
 import * as mutations from '../src/graphql/mutations';
@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
+import UserPhotos from "../src/components/UserPhotos"
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
@@ -102,7 +103,10 @@ function ProfilePage() {
           Logout
         </button>
       </div>
-      <input type="file" onChange={onChange} />;
+      <div className='flex flex-col items-center justify-center'>
+        <input type="file" accept="image/*" onChange={onChange} />
+      </div>
+      <UserPhotos />
       <CreateTodo onCreateTodo={onCreateTodo} />
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
         {todos.map((todo) => (
