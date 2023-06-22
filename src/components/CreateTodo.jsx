@@ -6,7 +6,7 @@ const CreateTodo = ({ onCreateTodo }) => {
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'todoItem') {
+    if (name === 'todoTitle') {
       setTodoItem(value);
     } else if (name === 'todoDescription') {
       setTodoDescription(value);
@@ -30,8 +30,8 @@ const CreateTodo = ({ onCreateTodo }) => {
           <div className="mt-6 flex flex-col m-10 justify-center">
             <input
               className="bg-white rounded-md py-2 px-4 border-2 outline-none m-2 text-black"
-              id="todo"
-              name="todo"
+              id="todoTitle"
+              name="todoTitle"
               value={todoItem}
               placeholder="Todo title"
               onChange={onInputChange}
@@ -42,7 +42,7 @@ const CreateTodo = ({ onCreateTodo }) => {
               name="todoDescription"
               value={todoDescription}
               placeholder="Description"
-              onChange={onDescInputChange}
+              onChange={onInputChange}
               />
             <button
               className="w-20 bg-blue-600 text-white p-2 rounded-md m-2"

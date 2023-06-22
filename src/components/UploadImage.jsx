@@ -10,7 +10,7 @@ import {
   } from "@aws-amplify/ui-react";
   import { API, Storage } from "aws-amplify";
 
-function UploadImage({ feature = null, setActiveFeature }) {
+const UploadImage = ({ feature = null, setActiveFeature }) => {
         const [id, setId] = useState(undefined);
         const [title, setTitle] = useState("");
         const [description, setDescription] = useState("");
@@ -32,7 +32,11 @@ function UploadImage({ feature = null, setActiveFeature }) {
           const fileName = `${Date.now()}-${file.name}`;
           try {
             await Storage.put(fileName, file, {
+              progressCallback(progress) {
+                console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+              },
               contentType: file.type,
+              level: "private",
             });
             setInternalDoc(fileName);
           } catch (error) {

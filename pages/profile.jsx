@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Auth, API } from 'aws-amplify';
+import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
 import * as mutations from '../src/graphql/mutations';
 import CreateTodo from '../src/components/CreateTodo';
@@ -8,6 +8,7 @@ import { Login } from '../src/components/Login';
 import Link from 'next/link';
 import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
+import { UploadImage } from "../src/components/UploadImage"
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
@@ -78,6 +79,18 @@ function ProfilePage() {
     }
   }
 
+  async function onChange(e) {
+    const file = e.target.files[0];
+    try {
+      await Storage.put(file.name, file, {
+        contentType: "image/png", // contentType is optional
+        level: "private",
+      });
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-center py-8">
@@ -89,6 +102,7 @@ function ProfilePage() {
           Logout
         </button>
       </div>
+      <input type="file" onChange={onChange} />;
       <CreateTodo onCreateTodo={onCreateTodo} />
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
         {todos.map((todo) => (
