@@ -10,6 +10,10 @@ import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
 import UserPhotos from "../src/components/UserPhotos"
+import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
+import '@aws-amplify/ui-react/styles.css';
+import { on } from 'events';
+
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
@@ -104,7 +108,13 @@ function ProfilePage() {
         </button>
       </div>
       <div className='flex flex-col items-center justify-center'>
-        <input type="file" accept="image/*" onChange={onChange} />
+        <FileUploader
+          maxFileCount={1}
+          maxSize={100000}
+          acceptedFileTypes={['image/*']}
+          accessLevel="private"
+          onChange={onChange}
+        />
       </div>
       <UserPhotos />
       <CreateTodo onCreateTodo={onCreateTodo} />
@@ -116,7 +126,15 @@ function ProfilePage() {
           >
             <p>{todo.name}</p>
             <p>{todo.description}</p>
-            <button className='bg-red-700 px-2 py-1 rounded-md' onClick={() => onDeleteTodo(todo.id)}>Delete</button>
+            <Button
+              className='font-light'
+              variation="destructive"
+              onClick={() => onDeleteTodo(todo.id)}
+              loadingText=""
+              ariaLabel=''
+            >
+              Delete
+            </Button>
           </div>
         ))}
       </div>
