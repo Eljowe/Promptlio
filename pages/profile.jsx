@@ -9,7 +9,6 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
-import UserPhotos from "../src/components/UserPhotos"
 import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 import { on } from 'events';
@@ -84,18 +83,6 @@ function ProfilePage() {
     }
   }
 
-  async function onChange(e) {
-    const file = e.target.files[0];
-    try {
-      await Storage.put(file.name, file, {
-        contentType: "image/png", // contentType is optional
-        level: "private",
-      });
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-  }
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-center py-8">
@@ -107,16 +94,6 @@ function ProfilePage() {
           Logout
         </button>
       </div>
-      <div className='flex flex-col items-center justify-center'>
-        <FileUploader
-          maxFileCount={1}
-          maxSize={100000}
-          acceptedFileTypes={['image/*']}
-          accessLevel="private"
-          onChange={onChange}
-        />
-      </div>
-      <UserPhotos />
       <CreateTodo onCreateTodo={onCreateTodo} />
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
         {todos.map((todo) => (
