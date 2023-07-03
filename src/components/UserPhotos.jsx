@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { withAuthenticator, AmplifyS3Image  } from '@aws-amplify/ui-react';
+import { Image } from "@aws-amplify/ui-react";
 import { Auth, API, Storage } from 'aws-amplify';
 
 
@@ -9,9 +9,11 @@ function UserPhotos() {
     useEffect(() => {
       const fetchUploadedPhotos = async () => {
         try {
-          const photos = await Storage.list('photos/', { level: 'private' });
-          const photoArray = photos.map(photo => photo.key);
+          const response = await Storage.list('', { level: 'private' });
+          const photos = response.results
+          const photoArray = photos.map(photo => Storage.get(photo.key, { level: 'private' }));
           setUploadedPhotos(photoArray);
+          console.log(photoArray)
         } catch (error) {
           console.error('Error listing uploaded photos:', error);
         }
@@ -23,8 +25,8 @@ function UserPhotos() {
     return (
       <div>
         <h2>Uploaded Photos</h2>
-        {uploadedPhotos.map(photoKey => (
-          <AmplifyS3Image key={photoKey} imgKey={photoKey} />
+        {uploadedPhotos.map(photo => (
+          <Image source={``} style={{ width: 100, height: 100 }} key={photo.eTag}/>
         ))}
       </div>
     );
