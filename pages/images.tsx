@@ -4,7 +4,8 @@ import {
   Collection,
   withAuthenticator,
   useAuthenticator,
-  Button
+  Button,
+  Link
 } from "@aws-amplify/ui-react";
 import { Storage } from "aws-amplify";
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
@@ -34,8 +35,28 @@ function App() {
   const onSuccess = (event: { key: string }) => {
     fetchImages();
   };
+
+  const deleteImage = async (imageKey: string) => {
+    try {
+      console.log(imageKey)
+      await Storage.remove(imageKey, { level: "private" });
+      const updatedKeys = imageKeys.filter(key => key.key !== imageKey);
+      setImageKeys(updatedKeys);
+      const updatedImages = images.filter(image => image !== imageKey);
+      setImages(updatedImages);
+      console.log(`Deleted image: ${imageKey}`);
+      fetchImages();
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
+  };
+
   return (
-    <>
+    <div className="flex flex-col">
+      <div className="flex flex-row items-center justify-center py-8">
+        <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
+        <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
+      </div>
       <FileUploader
         accessLevel="private"
         acceptedFileTypes={["image/*"]}
@@ -58,16 +79,20 @@ function App() {
         gap="small"
       >
         {(item, index) => (
-          <ImageCard
-            key={index}
-            imageKeys={imageKeys}
-            item={item}
-            index={index}
-          />
+          <>
+            <ImageCard
+              key={index}
+              imageKeys={imageKeys}
+              item={item}
+              index={index}
+              deleteImage={deleteImage}
+            />
+            
+          </>
         )}
       </Collection>
       <Button onClick={signOut}>Sign Out</Button>
-    </>
+    </div>
   );
 }
 

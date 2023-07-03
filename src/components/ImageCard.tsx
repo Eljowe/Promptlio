@@ -1,15 +1,18 @@
 import React from "react";
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
-import { Card, Flex, Heading, Image } from "@aws-amplify/ui-react";
+import { Card, Flex, Heading, Image, Button } from "@aws-amplify/ui-react";
 
 export function ImageCard({
   item,
   index,
-  imageKeys
+  imageKeys,
+  deleteImage
 }: {
   index: number;
   item: string;
   imageKeys: S3ProviderListOutputItem[];
+  deleteImage: (key: string) => void;
+
 }) {
   return (
     <Card lineHeight="small" border={"2px solid #66ff99"}>
@@ -26,6 +29,7 @@ export function ImageCard({
           <Heading level={2} isTruncated={true}>
             {imageKeys[index]?.key}
           </Heading>
+          <Button onClick={() => deleteImage(imageKeys[index].key!)}>Delete</Button>
         </Flex>
       </Flex>
     </Card>
