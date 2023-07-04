@@ -121,4 +121,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App, false, [<Login/>]);
+export default withAuthenticator(App);
