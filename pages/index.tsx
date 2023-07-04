@@ -14,9 +14,10 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-start px-8`}
+      className={`flex min-h-screen flex-col items-center justify-start`}
     >
-      <div className='flex min-w-screen flex-row items-center justify-between py-8'>
+      <div className="flex flex-row items-center justify-center py-8">
+        <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
         {user ? <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link> : <Link className='text-white hover:text-blue-700 px-4' href="/login">Login</Link>}
         {user ? <Link className='text-white hover:text-blue-700 px-4' href="/images">Images</Link> : null}
         {!user ? null : <button className='text-white hover:text-blue-700 px-4' onClick={signoutHandler}>Logout</button>}

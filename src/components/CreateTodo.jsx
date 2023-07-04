@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 
+import { TextField, Flex, Text, Button } from "@aws-amplify/ui-react";
+
 const CreateTodo = ({ onCreateTodo }) => {
   const [todoItem, setTodoItem] = useState("");
   const [todoDescription, setTodoDescription] = useState("");
 
-  const onInputChange = (e) => {
+  const onTitleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'todoTitle') {
-      setTodoItem(value);
-    } else if (name === 'todoDescription') {
-      setTodoDescription(value);
-    }
+    setTodoItem(value);
+  };
+
+  const onDescChange = (e) => {
+    const { name, value } = e.target;
+    setTodoDescription(value);
   };
 
   const onSubmit = (e) => {
@@ -22,37 +25,42 @@ const CreateTodo = ({ onCreateTodo }) => {
 
   return (
     <>
-      <form className="flex justify-center mt-10">
         <div className="px-4 py-2 rounded-lg w-96">
           <h1 className="text-center mt-4 mb-4 text-xl text-white">
             Todo form
           </h1>
-          <div className="mt-6 flex flex-col m-10 justify-center">
-            <input
-              className="bg-white rounded-md py-2 px-4 border-2 outline-none m-2 text-black"
-              id="todoTitle"
-              name="todoTitle"
+          <Flex as="form" direction="column" width="20rem">
+            <TextField
+              descriptiveText={
+                <Text 
+                  as="span" 
+                  fontSize="0.8rem" 
+                  color="red" 
+                  fontStyle="italic"
+                >
+                  Required
+                </Text>}
+              placeholder="Title"
+              label="Title"
+              errorMessage="There is an error"
+              isRequired={true}
+              labelHidden={true}
               value={todoItem}
-              placeholder="Todo title"
-              onChange={onInputChange}
-              />
-               <input
-              className="bg-white rounded-md py-2 px-4 border-2 outline-none m-2 text-black"
-              id="todoDescription"
-              name="todoDescription"
-              value={todoDescription}
+              onChange={onTitleChange}
+            />
+            <TextField
+              descriptiveText="Enter a valid description"
               placeholder="Description"
-              onChange={onInputChange}
-              />
-            <button
-              className="w-20 bg-blue-600 text-white p-2 rounded-md m-2"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
-          </div>
+              label="Description"
+              errorMessage="There is an error"
+              isRequired={true}
+              labelHidden={true}
+              value={todoDescription}
+              onChange={onDescChange}
+            />
+            <Button type="submit" onClick={onSubmit}>Submit</Button>
+          </Flex>
         </div>
-      </form>
     </>
   );
 };

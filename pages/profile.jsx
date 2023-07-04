@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { withAuthenticator, AmplifyS3Image  } from '@aws-amplify/ui-react';
+import { withAuthenticator, AmplifyS3Image, useAuthenticator  } from '@aws-amplify/ui-react';
 import { Auth, API, Storage } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
 import * as mutations from '../src/graphql/mutations';
@@ -15,6 +15,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
+  const { user } = useAuthenticator();
 
   const fetchTodos = async () => {
     try {
@@ -82,10 +83,13 @@ function ProfilePage() {
     }
   }
 
+  console.log(user)
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-center py-8">
         <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
+        <Link className='text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
         <Link className='text-white hover:text-blue-700 px-4' href="/images">Images</Link> 
         <button
           className="text-center hover:text-blue-700 text-white px-4 rounded"
@@ -94,7 +98,9 @@ function ProfilePage() {
           Logout
         </button>
       </div>
-      <CreateTodo onCreateTodo={onCreateTodo} />
+      <div className='flex flex-col items-center'>
+        <CreateTodo onCreateTodo={onCreateTodo} />
+      </div>
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
         {todos.map((todo) => (
           <div
@@ -105,6 +111,7 @@ function ProfilePage() {
             <p>{todo.description}</p>
             <Button
               className='font-light'
+              color={'#ffffff'}
               variation="destructive"
               onClick={() => onDeleteTodo(todo.id)}
               loadingText=""

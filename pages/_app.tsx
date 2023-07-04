@@ -3,7 +3,7 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Montserrat } from 'next/font/google';
 import { Amplify, Auth } from 'aws-amplify';
-import { AmplifyProvider, Authenticator } from "@aws-amplify/ui-react";
+import { AmplifyProvider, Authenticator, defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import Head from 'next/head'; 
  
 
@@ -16,6 +16,11 @@ Amplify.configure({ ...config, ssr: false })
 Auth.configure({...config});
 
 export default function App({ Component, pageProps }: AppProps) {
+  const theme = {
+    name: 'my-theme',
+    overrides: [defaultDarkModeOverride],
+  };
+
   return (
     <>
       <Head>
@@ -26,12 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <main className={montserrat.className}>
         <div className='debug-screens'>
-        <AmplifyProvider>
-          <Authenticator.Provider>
-            <Component {...pageProps} />
+          <AmplifyProvider>
+            <Authenticator.Provider>
+              <ThemeProvider theme={theme} colorMode="system">
+                <Component {...pageProps} />
+              </ThemeProvider>
             </Authenticator.Provider>
-        </AmplifyProvider>
-       </div>
+          </AmplifyProvider>
+        </div>
       </main>
     </>
   );
