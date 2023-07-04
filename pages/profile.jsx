@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { withAuthenticator, AmplifyS3Image, useAuthenticator  } from '@aws-amplify/ui-react';
-import { Auth, API, Storage } from 'aws-amplify';
+import { withAuthenticator, AmplifyS3Image, useAuthenticator } from '@aws-amplify/ui-react';
+import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
 import * as mutations from '../src/graphql/mutations';
 import CreateTodo from '../src/components/CreateTodo';
-import { Login } from '../src/components/Login';
+import { Login } from "../src/components/Login";
 import Link from 'next/link';
 import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
@@ -12,8 +12,7 @@ import { UploadImage } from "../src/components/UploadImage"
 import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 
-
-function ProfilePage() {
+function ProfilePage({authenticated, username}) {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
 
@@ -35,7 +34,7 @@ function ProfilePage() {
 
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [user]);
 
   const signOutHandler = async () => {
     try {
@@ -83,7 +82,9 @@ function ProfilePage() {
     }
   }
 
-  console.log(user)
+  if(!user){
+    return <Login/>
+  }
 
   return (
     <div className="flex flex-col">

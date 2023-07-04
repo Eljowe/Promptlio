@@ -21,8 +21,7 @@ import {
     Footer
   };
   
-  export function Login() {
-    const { tokens } = useTheme();
+   export function Login() {
   
     return (
       <Grid templateColumns={{ base: "1fr 0", medium: "1fr 1fr" }}>

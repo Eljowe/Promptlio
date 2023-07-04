@@ -12,7 +12,7 @@ const montserrat = Montserrat({
   subsets: ['latin'] 
 });
 
-Amplify.configure({ ...config, ssr: false })
+Amplify.configure({ ...config, ssr: true })
 Auth.configure({...config});
 
 export default function App({ Component, pageProps }: AppProps) {

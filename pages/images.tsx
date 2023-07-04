@@ -12,6 +12,7 @@ import Router from 'next/router';
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
 import { ImageCard } from "../src/components/ImageCard";
+import { Login } from "@/src/components/Login";
 
 function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
@@ -120,4 +121,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, false, [<Login/>]);
