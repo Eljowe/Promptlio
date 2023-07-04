@@ -2,17 +2,32 @@ import config from '../src/aws-exports'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Montserrat } from 'next/font/google';
-import { Amplify, Auth, withSSRContext } from 'aws-amplify';
+import { Amplify, withSSRContext } from 'aws-amplify';
 import { AmplifyProvider, Authenticator, defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import Head from 'next/head'; 
- 
+
 
 const montserrat = Montserrat({
   subsets: ['latin'] 
 });
 
 Amplify.configure({ ...config, ssr: true })
-Auth.configure({...config});
+const { Auth } = withSSRContext();
+
+Auth.configure({
+  region: process.env.AUTH_REGION,
+  userPoolId: process.env.AUTH_POOL,
+  userPoolWebClientId: process.env.AUTH_POOL_CLIENT,
+  mandatorySignIn: false,
+  // Set this only if you wish to use cookies to storage otherwise ignore it
+  cookieStorage: {
+    domain: 'localhost',
+    // Set true if is a domain with https. For localhost set it to false
+    secure: false,
+    path: '/',
+    expires: 2,
+  },
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   const theme = {

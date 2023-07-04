@@ -7,7 +7,7 @@ import {
   Button,
   Link
 } from "@aws-amplify/ui-react";
-import { Auth, API, Storage } from 'aws-amplify';
+import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
 import Router from 'next/router';
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
@@ -18,11 +18,6 @@ function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
   const [images, setImages] = useState<string[]>([]);
   const { signOut } = useAuthenticator(context => [context.signOut]);
-  const { user } = useAuthenticator();
-
-  if (!user) {
-    Router.push('/login');
-  }
 
   const signOutHandler = async () => {
     try {
@@ -121,4 +116,30 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export async function authenticatedUsers(context) {
+  const { Auth } = withSSRContext(context);
+  try {
+    await Auth.currentAuthenticatedUser();
+  } catch (error) {
+    console.log(error)
+    return true
+  }
+  return false
+}
+
+export const getServerSideProps = async (ctx) => {
+  let shouldRedirect = await authenticatedUsers(ctx);
+  if (shouldRedirect) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {}
+  }
+}
+
+export default App;

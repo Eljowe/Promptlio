@@ -100,6 +100,7 @@ function ProfilePage({authenticated, username}) {
         </button>
       </div>
       <div className='flex flex-col items-center'>
+      <h1>Hello {username} from SSR route!</h1>
         <CreateTodo onCreateTodo={onCreateTodo} />
       </div>
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
@@ -127,4 +128,30 @@ function ProfilePage({authenticated, username}) {
   );
 }
 
-export default withAuthenticator(ProfilePage);
+export async function authenticatedUsers(context) {
+  const { Auth } = withSSRContext(context);
+  try {
+    await Auth.currentAuthenticatedUser();
+  } catch (error) {
+    console.log(error)
+    return true
+  }
+  return false
+}
+
+export const getServerSideProps = async (ctx) => {
+  let shouldRedirect = await authenticatedUsers(ctx);
+  if (shouldRedirect) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {}
+  }
+}
+
+export default ProfilePage;

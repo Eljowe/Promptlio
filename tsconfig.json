@@ -35,7 +35,7 @@
     "**/*.tsx",
     "pages/profile.jsx",
     ".next/types/**/*.ts"
-  ],
+, "src/utils/authenticatedUsers.js"  ],
   "exclude": [
     "node_modules"
   ]
