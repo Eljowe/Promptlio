@@ -14,6 +14,7 @@ export async function authenticatedUsers(context) {
   
   export const getServerSideProps = async (ctx) => {
     let shouldRedirect = await authenticatedUsers(ctx);
+    console.log(ctx)
     if (shouldRedirect) {
       return {
         redirect: {

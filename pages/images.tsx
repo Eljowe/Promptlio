@@ -13,8 +13,9 @@ import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
 import { ImageCard } from "../src/components/ImageCard";
 import { Login } from "@/src/components/Login";
+import { getServerSideProps } from "@/src/utils/authenticatedUsers";
 
-function App() {
+export default function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
   const [images, setImages] = useState<string[]>([]);
   const { signOut } = useAuthenticator(context => [context.signOut]);
@@ -29,14 +30,18 @@ function App() {
   };
 
   const fetchImages = async () => {
-    const { results } = await Storage.list("", { level: "private" });
-    setImageKeys(results);
-    const s3Images = await Promise.all(
-      results.map(
-        async image => await Storage.get(image.key!, { level: "private" })
-      )
-    );
-    setImages(s3Images);
+    try {
+      const { results } = await Storage.list("", { level: "private" });
+      setImageKeys(results);
+      const s3Images = await Promise.all(
+        results.map(
+          async image => await Storage.get(image.key!, { level: "private" })
+        )
+      );
+      setImages(s3Images);
+    } catch (error) { 
+      console.error('Error fetching images:', error);
+    }
   };
 
   useEffect(() => {
@@ -116,30 +121,4 @@ function App() {
   );
 }
 
-export async function authenticatedUsers(context) {
-  const { Auth } = withSSRContext(context);
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch (error) {
-    console.log(error)
-    return true
-  }
-  return false
-}
-
-export const getServerSideProps = async (ctx) => {
-  let shouldRedirect = await authenticatedUsers(ctx);
-  if (shouldRedirect) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    }
-  }
-  return {
-    props: {}
-  }
-}
-
-export default App;
+export { getServerSideProps };

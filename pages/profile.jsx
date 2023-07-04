@@ -11,8 +11,9 @@ import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
 import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
+import { getServerSideProps } from "@/src/utils/authenticatedUsers";
 
-function ProfilePage({authenticated, username}) {
+export default function ProfilePage({authenticated, username}) {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
 
@@ -128,30 +129,4 @@ function ProfilePage({authenticated, username}) {
   );
 }
 
-export async function authenticatedUsers(context) {
-  const { Auth } = withSSRContext(context);
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch (error) {
-    console.log(error)
-    return true
-  }
-  return false
-}
-
-export const getServerSideProps = async (ctx) => {
-  let shouldRedirect = await authenticatedUsers(ctx);
-  if (shouldRedirect) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    }
-  }
-  return {
-    props: {}
-  }
-}
-
-export default ProfilePage;
+export { getServerSideProps };
