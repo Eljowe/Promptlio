@@ -11,7 +11,6 @@ import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
 import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
-import { on } from 'events';
 
 
 function ProfilePage() {

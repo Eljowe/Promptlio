@@ -15,7 +15,7 @@ export function ImageCard({
 
 }) {
   return (
-    <Card lineHeight="small" border={"2px solid #66ff99"}>
+    <Card lineHeight="small">
       <Flex gap="xxs" direction="column">
         <Image
           alt={imageKeys[index]?.key}

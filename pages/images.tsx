@@ -7,7 +7,8 @@ import {
   Button,
   Link
 } from "@aws-amplify/ui-react";
-import { Storage } from "aws-amplify";
+import { Auth, API, Storage } from 'aws-amplify';
+import Router from 'next/router';
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
 import { ImageCard } from "../src/components/ImageCard";
@@ -16,6 +17,15 @@ function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
   const [images, setImages] = useState<string[]>([]);
   const { signOut } = useAuthenticator(context => [context.signOut]);
+
+  const signOutHandler = async () => {
+    try {
+      await Auth.signOut();
+      Router.push('/');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const fetchImages = async () => {
     const { results } = await Storage.list("", { level: "private" });
@@ -56,13 +66,21 @@ function App() {
       <div className="flex flex-row items-center justify-center py-8">
         <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
         <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
+        <button
+          className="text-center hover:text-blue-700 text-white px-4 rounded"
+          onClick={signOutHandler}
+        >
+          Logout
+        </button>
       </div>
-      <FileUploader
-        accessLevel="private"
-        acceptedFileTypes={["image/*"]}
-        variation="drop"
-        onSuccess={onSuccess}
-      />
+      <div className="flex flex-col items-center">
+        <FileUploader
+          accessLevel="private"
+          acceptedFileTypes={["image/*"]}
+          variation="drop"
+          onSuccess={onSuccess}
+        />
+      </div>
       <Collection
         items={images}
         type="grid"
