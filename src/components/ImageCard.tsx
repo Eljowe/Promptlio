@@ -15,7 +15,7 @@ export function ImageCard({
 
 }) {
   return (
-    <Card lineHeight="small" key={imageKeys[index].key}>
+    <Card lineHeight="small" key={imageKeys[index]?.key}>
       <Flex gap="xxs" direction="column">
         <Image
           alt={imageKeys[index]?.key}
@@ -24,7 +24,7 @@ export function ImageCard({
           src={item}
           sizes="50vw"
           style={{ borderRadius: "medium", objectFit: "contain" }}
-          key={imageKeys[index].key}
+          key={imageKeys[index]?.key}
         ></Image>
         <Flex alignItems="center">
           <Heading level={2} isTruncated={true}>
