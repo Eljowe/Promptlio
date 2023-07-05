@@ -1,15 +1,9 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import Router from 'next/router'
 
 export default function Home() {
   const { user } = useAuthenticator();
   const { signOut } = useAuthenticator(context => [context.signOut]);
-
-  function signoutHandler(): void {
-    signOut();
-  }
 
   return (
     <main

@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
-import { withAuthenticator, AmplifyS3Image, useAuthenticator } from '@aws-amplify/ui-react';
-import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Auth, API } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
-import * as mutations from '../src/graphql/mutations';
 import CreateTodo from '../src/components/CreateTodo';
 import { Login } from "../src/components/Authorization/Login";
-import Link from 'next/link';
-import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
-import { UploadImage } from "../src/components/UploadImage"
-import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
+import { Button } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 import Navbar from '@/src/components/Navigation/Navbar'
 
-function ProfilePage({authenticated, username}) {
+function ProfilePage() {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
   
@@ -60,7 +56,7 @@ function ProfilePage({authenticated, username}) {
 
   const onDeleteTodo = async(id) => {
     try {
-      const res = await API.graphql({
+      await API.graphql({
         query: deleteTodo,
         variables: {
             input: {
@@ -82,7 +78,6 @@ function ProfilePage({authenticated, username}) {
     <div className="flex flex-col">
       <Navbar />
       <div className='flex flex-col items-center'>
-      <h1 >Hello {username} from SSR route!</h1>
         <CreateTodo onCreateTodo={onCreateTodo} />
       </div>
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">

@@ -2,18 +2,13 @@ import React, { useState, useEffect } from "react";
 import {
   FileUploader,
   Collection,
-  withAuthenticator,
   useAuthenticator,
-  Button
 } from "@aws-amplify/ui-react";
-import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
-import Router from 'next/router';
+import { Storage } from 'aws-amplify';
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
 import { ImageCard } from "../src/components/ImageCard";
 import { Login } from "@/src/components/Authorization/Login";
-import { getServerSideProps } from "@/src/utils/authenticatedUsers";
-import Link from 'next/link';
 import Navbar from '@/src/components/Navigation/Navbar'
 
 function App() {
