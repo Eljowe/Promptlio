@@ -23,6 +23,7 @@ function Navbar() {
             <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
             <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
             <Link className=' text-white hover:text-blue-700 px-4' href="/images">Images</Link>
+            <Link className=' text-white hover:text-blue-700 px-4' href="/threejs">Three</Link>
             <button
             className="text-center hover:text-blue-700 text-white px-4 rounded"
             onClick={signOutHandler}
