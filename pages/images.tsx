@@ -4,16 +4,17 @@ import {
   Collection,
   withAuthenticator,
   useAuthenticator,
-  Button,
-  Link
+  Button
 } from "@aws-amplify/ui-react";
 import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
 import Router from 'next/router';
 import { S3ProviderListOutputItem } from "@aws-amplify/storage";
 import "@aws-amplify/ui-react/styles.css";
 import { ImageCard } from "../src/components/ImageCard";
-import { Login } from "@/src/components/Login";
+import { Login } from "@/src/components/Authorization/Login";
 import { getServerSideProps } from "@/src/utils/authenticatedUsers";
+import Link from 'next/link';
+import Navbar from '@/src/components/Navigation/Navbar'
 
 function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
@@ -69,19 +70,13 @@ function App() {
     }
   };
 
+  if(!user){
+    return <Login/>
+  }
+
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-center justify-center py-8">
-        <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
-        <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
-        <Link className=' text-white hover:text-blue-700 px-4' href="/images">Images</Link>
-        <button
-          className="text-center hover:text-blue-700 text-white px-4 rounded"
-          onClick={signOutHandler}
-        >
-          Logout
-        </button>
-      </div>
+      <Navbar/>
       <div className="flex flex-col items-center">
         <FileUploader
           accessLevel="private"
@@ -123,4 +118,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App)
+export default App

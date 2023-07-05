@@ -4,20 +4,19 @@ import { Auth, API, Storage, withSSRContext } from 'aws-amplify';
 import * as queries from '../src/graphql/queries';
 import * as mutations from '../src/graphql/mutations';
 import CreateTodo from '../src/components/CreateTodo';
-import { Login } from "../src/components/Login";
+import { Login } from "../src/components/Authorization/Login";
 import Link from 'next/link';
 import Router from 'next/router';
 import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { UploadImage } from "../src/components/UploadImage"
 import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
-import { getServerSideProps } from "@/src/utils/authenticatedUsers";
+import Navbar from '@/src/components/Navigation/Navbar'
 
 function ProfilePage({authenticated, username}) {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
   
-
   const fetchTodos = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -90,19 +89,9 @@ function ProfilePage({authenticated, username}) {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-center justify-center py-8">
-        <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
-        <Link className='text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
-        <Link className='text-white hover:text-blue-700 px-4' href="/images">Images</Link> 
-        <button
-          className="text-center hover:text-blue-700 text-white px-4 rounded"
-          onClick={signOutHandler}
-        >
-          Logout
-        </button>
-      </div>
+      <Navbar />
       <div className='flex flex-col items-center'>
-      <h1>Hello {username} from SSR route!</h1>
+      <h1 >Hello {username} from SSR route!</h1>
         <CreateTodo onCreateTodo={onCreateTodo} />
       </div>
       <div className="flex flex-row items-center justify-center flex-wrap sd:flex-wrap-reverse">
@@ -130,4 +119,4 @@ function ProfilePage({authenticated, username}) {
   );
 }
 
-export default withAuthenticator(ProfilePage)
+export default ProfilePage

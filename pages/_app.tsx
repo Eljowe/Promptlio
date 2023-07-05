@@ -5,6 +5,7 @@ import { Montserrat } from 'next/font/google';
 import { Amplify, withSSRContext, Auth } from 'aws-amplify';
 import { AmplifyProvider, Authenticator, defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import Head from 'next/head'; 
+import "@aws-amplify/ui-react/styles.css";
 
 
 const montserrat = Montserrat({
@@ -28,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={montserrat.className}>
+      <main >
         <div className='debug-screens'>
           <AmplifyProvider>
             <Authenticator.Provider>
