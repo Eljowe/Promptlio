@@ -15,10 +15,12 @@ import { ImageCard } from "../src/components/ImageCard";
 import { Login } from "@/src/components/Login";
 import { getServerSideProps } from "@/src/utils/authenticatedUsers";
 
-export default function App() {
+function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
   const [images, setImages] = useState<string[]>([]);
   const { signOut } = useAuthenticator(context => [context.signOut]);
+
+  const { user } = useAuthenticator();
 
   const signOutHandler = async () => {
     try {
@@ -121,4 +123,4 @@ export default function App() {
   );
 }
 
-export { getServerSideProps };
+export default withAuthenticator(App)

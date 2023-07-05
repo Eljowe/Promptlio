@@ -13,9 +13,10 @@ import { Button, Card, Col, Container, Form, Row, FileUploader   } from "@aws-am
 import '@aws-amplify/ui-react/styles.css';
 import { getServerSideProps } from "@/src/utils/authenticatedUsers";
 
-export default function ProfilePage({authenticated, username}) {
+function ProfilePage({authenticated, username}) {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
+  
 
   const fetchTodos = async () => {
     try {
@@ -129,4 +130,4 @@ export default function ProfilePage({authenticated, username}) {
   );
 }
 
-export { getServerSideProps };
+export default withAuthenticator(ProfilePage)
