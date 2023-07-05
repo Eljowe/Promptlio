@@ -1,16 +1,20 @@
 import Router from 'next/router';
 import Link from 'next/link';
 import { Auth } from 'aws-amplify';
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 
 
 function Navbar() {
+    const { signOut } = useAuthenticator(context => [context.signOut]);
+
     const signOutHandler = async () => {
         try {
-          await Auth.signOut();
-          Router.push('/');
+            await signOut();
+            //await Auth.signOut();
+            Router.push('/');
         } catch (error) {
-          console.error('Error:', error);
+            console.error('Error:', error);
         }
     };
 

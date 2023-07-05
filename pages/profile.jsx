@@ -37,15 +37,6 @@ function ProfilePage({authenticated, username}) {
     fetchTodos();
   }, [user]);
 
-  const signOutHandler = async () => {
-    try {
-      await Auth.signOut();
-      Router.push('/');
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   const onCreateTodo = async (todo, todoDescription) => {
     try {
       const newTodo = await API.graphql({

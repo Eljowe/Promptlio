@@ -19,18 +19,7 @@ import Navbar from '@/src/components/Navigation/Navbar'
 function App() {
   const [imageKeys, setImageKeys] = useState<S3ProviderListOutputItem[]>([]);
   const [images, setImages] = useState<string[]>([]);
-  const { signOut } = useAuthenticator(context => [context.signOut]);
-
   const { user } = useAuthenticator();
-
-  const signOutHandler = async () => {
-    try {
-      await Auth.signOut();
-      Router.push('/');
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
 
   const fetchImages = async () => {
     try {
@@ -113,7 +102,6 @@ function App() {
           </>
         )}
       </Collection>
-      <Button onClick={signOut}>Sign Out</Button>
     </div>
   );
 }

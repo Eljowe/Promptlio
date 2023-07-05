@@ -5,11 +5,10 @@ import Router from 'next/router'
 
 export default function Home() {
   const { user } = useAuthenticator();
-  const { signOut } = useAuthenticator();
+  const { signOut } = useAuthenticator(context => [context.signOut]);
 
   function signoutHandler(): void {
     signOut();
-    Router.push('/');
   }
 
   return (
@@ -20,7 +19,7 @@ export default function Home() {
         <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
         {user ? <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link> : <Link className='text-white hover:text-blue-700 px-4' href="/login">Login</Link>}
         {user ? <Link className='text-white hover:text-blue-700 px-4' href="/images">Images</Link> : null}
-        {!user ? null : <button className='text-white hover:text-blue-700 px-4' onClick={signoutHandler}>Logout</button>}
+        {!user ? null : <button className='text-white hover:text-blue-700 px-4' onClick={signOut}>Logout</button>}
       </div>
       <div className="w-full max-w-5xl items-center justify-between text-sm lg:flex">
         <h1 className="text-4xl">Hello from main</h1>
