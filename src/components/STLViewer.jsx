@@ -9,6 +9,7 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 const STLview = ({ STL, position }) => {
     const mountRef = useRef(null)
     useEffect(() => {
+        const windowWidth = mountRef.current.getBoundingClientRect().width
         var scene = new THREE.Scene()
         const helper = new THREE.GridHelper( 1000, 40, 0x303030, 0x303030 )
         helper.position.y = -40
@@ -74,16 +75,17 @@ const STLview = ({ STL, position }) => {
 
 
         }
-
+        /*
         var material = new THREE.MeshPhongMaterial( {
             color: '#8d8d8d',
             polygonOffset: true,
-            polygonOffsetFactor: 1, // positive value pushes polygon further away
+            polygonOffsetFactor: 1,
             polygonOffsetUnits: 1
         } )
 
 
         const loader = new STLLoader()
+        
         loader.load(
             STL,
             function (geometry) {
@@ -102,6 +104,21 @@ const STLview = ({ STL, position }) => {
                 console.log(error)
             }
         )
+        */
+        var insidecolor = 0x000000
+        var linecolor = 0xFFFFFF
+
+
+        const sphereg = new THREE.SphereGeometry( 100, 15, 17, 0, 2*Math.PI, 0, 5.7428 )
+        const sphereM = new THREE.MeshBasicMaterial(  { color: insidecolor } )
+        const spheremesh = new THREE.Mesh( sphereg, sphereM )
+
+        const material = new THREE.MeshBasicMaterial( { color: linecolor , wireframe: true, wireframeLinewidth: 1.3 } )
+        const sphere = new THREE.Mesh( sphereg, material )
+        sphere.scale.set(1.1, 1.1, 1.1)
+
+        scene.add( sphere )
+        scene.add( spheremesh )
 
         //const stats = Stats()
         //mountRef.current.appendChild( stats.dom )

@@ -6,6 +6,7 @@ function App() {
         <div className="flex flex-col items-center justify-center">
             <Navbar />
             <h1>Hello from three!</h1>
+            <STLview STL="@/src/scanner.STL" position={{ x: 0, z: 0, y: 0 }}/>
         </div>
     )
 }
