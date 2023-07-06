@@ -9,10 +9,10 @@ function Navbar() {
     const { signOut } = useAuthenticator(context => [context.signOut]);
 
     const signOutHandler = async () => {
+        console.log('clicked')
         try {
-            await signOut();
+            await signOut({ callbackUrl: "/api/auth/logout", });
             //await Auth.signOut();
-            Router.push('/');
         } catch (error) {
             console.error('Error:', error);
         }
@@ -20,10 +20,10 @@ function Navbar() {
 
     return (
         <div className="flex flex-row items-center justify-center py-8">
-            <Link className='text-white hover:text-blue-700 px-4' href="/">Home</Link>
-            <Link className=' text-white hover:text-blue-700 px-4' href="/profile">Profile</Link>
-            <Link className=' text-white hover:text-blue-700 px-4' href="/images">Images</Link>
-            <Link className=' text-white hover:text-blue-700 px-4' href="/threejs">Three</Link>
+            <Link className='text-white hover:text-blue-700 px-4' href="/" prefetch={false}>Home</Link>
+            <Link className=' text-white hover:text-blue-700 px-4' href="/profile" prefetch={false}>Profile</Link>
+            <Link className=' text-white hover:text-blue-700 px-4' href="/images" prefetch={false}>Images</Link>
+            <Link className=' text-white hover:text-blue-700 px-4' href="/threejs" prefetch={false}>Three</Link>
             <button
             className="text-center hover:text-blue-700 text-white px-4 rounded"
             onClick={signOutHandler}

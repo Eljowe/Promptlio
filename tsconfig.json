@@ -33,9 +33,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.STL",
     "pages/profile.jsx",
     ".next/types/**/*.ts"
-, "src/utils/authenticatedUsers.js"  ],
+, "src/utils/authenticatedUsers.js", "pages/api/auth/logout.js"  ],
   "exclude": [
     "node_modules"
   ]

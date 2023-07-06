@@ -8,10 +8,12 @@ import { createTodo, deleteTodo } from '../src/graphql/mutations';
 import { Button } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 import Navbar from '@/src/components/Navigation/Navbar'
+import { useRouter } from 'next/router';
 
 function ProfilePage() {
   const [todos, setTodos] = useState([]);
   const { user } = useAuthenticator();
+  const router = useRouter()
   
   const fetchTodos = async () => {
     try {
@@ -26,11 +28,14 @@ function ProfilePage() {
       setTodos(todoData.data.listTodos.items);
     } catch (error) {
       console.error('Error:', error);
+      router.reload()
     }
   };
 
   useEffect(() => {
-    fetchTodos();
+    if (user) {
+      fetchTodos();
+    }
   }, [user]);
 
   const onCreateTodo = async (todo, todoDescription) => {

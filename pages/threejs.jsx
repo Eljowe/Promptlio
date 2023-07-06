@@ -1,5 +1,5 @@
 import Navbar from '@/src/components/Navigation/Navbar'
-
+import STLview from '../src/components/STLViewer'
 
 function App() {
     return(
@@ -9,5 +9,5 @@ function App() {
         </div>
     )
 }
-
+//<STLview STL={"@/src/scanner.STL"} position={{ x: 0, z: 0, y: 0 }}/>
 export default App
