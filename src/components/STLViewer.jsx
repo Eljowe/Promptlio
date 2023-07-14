@@ -142,7 +142,7 @@ const STLview = ({ STL }) => {
         }
 
         animate()
-    }, [])
+    }, [STL])
 
     //mountRef.current.addEventListener('wheel', preventScroll, { passive: false })
     return (

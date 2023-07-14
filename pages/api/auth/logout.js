@@ -1,1 +1,3 @@
-export default (req, res) => { res.redirect('/'); }
+const redir = (res) => { res.redirect('/'); }
+
+export default redir;

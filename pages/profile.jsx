@@ -36,7 +36,7 @@ function ProfilePage() {
     if (user) {
       fetchTodos();
     }
-  }, [user]);
+  });
 
   const onCreateTodo = async (todo, todoDescription) => {
     try {
