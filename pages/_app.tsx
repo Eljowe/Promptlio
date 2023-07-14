@@ -2,7 +2,7 @@ import config from '../src/aws-exports'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Montserrat } from 'next/font/google';
-import { Amplify, withSSRContext, Auth } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import { AmplifyProvider, Authenticator, defaultDarkModeOverride, ThemeProvider } from "@aws-amplify/ui-react";
 import Head from 'next/head'; 
 import "@aws-amplify/ui-react/styles.css";
